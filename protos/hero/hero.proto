@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package hero;
+
+service HeroesService {
+  rpc GetAll (HeroesListGet) returns (HeroesList);
+  rpc FindOne (HeroById) returns (Hero);
+
+  rpc GetAllStream (stream HeroesListGet) returns (stream HeroesList);
+  rpc FindOneStream (stream HeroById) returns (stream Hero);
+}
+
+message HeroesList {
+  repeated Hero data = 1;
+}
+message HeroesListGet {}
+
+
+message HeroById {
+  int32 id = 1;
+}
+message Hero {
+  int32 id = 1;
+  string name = 2;
+}
