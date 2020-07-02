@@ -4,19 +4,12 @@ import { AppService } from './app.service';
 import { GrpcMethod, GrpcStreamMethod } from '@nestjs/microservices';
 import { Subject, Observable } from 'rxjs';
 
-interface HeroById {
-  id: number;
-}
-
-interface Hero {
-  id: number,
-  name: string
-}
+import { hero } from '../../../../protos/types'
 
 @Controller()
 export class AppController {
 
-  private heroesList: Array<Hero> = [
+  private heroesList: Array<hero.IHero> = [
     { id: 1, name: 'John' },
     { id: 2, name: 'Doe' },
   ];
@@ -24,40 +17,36 @@ export class AppController {
   constructor(private readonly appService: AppService) { }
 
   @GrpcMethod('HeroesService')
-  getAll(data: undefined, metadata: unknown): { data: Array<Hero> } {
+  getAll(data: hero.IHeroesListGet): { data: Array<hero.IHero> } {
     return { data: this.heroesList };
   }
 
   @GrpcMethod('HeroesService')
-  findOne(data: HeroById, metadata: unknown): Hero {
+  findOne(data: hero.IHeroById): hero.IHero {
     return this.heroesList.find(({ id }) => id === data.id);
   }
 
   @GrpcStreamMethod('HeroesService')
-  getAllStream(message: Observable<undefined>, metadata: unknown): Observable<{ data: Array<Hero> }> {
-    const subject = new Subject<{ data: Array<Hero> }>();
+  getAllStream(message: Observable<hero.IHeroesListGet>): Observable<{ data: Array<hero.IHero> }> {
+    const subject = new Subject<{ data: Array<hero.IHero> }>();
     const onNext = data => {
       subject.next({
         data: this.heroesList
       })
     }
-
     const onComplete = () => subject.complete();
     message.subscribe(onNext, null, onComplete);
-
     return subject.asObservable();
   }
 
   @GrpcStreamMethod('HeroesService')
-  findOneStream(message: Observable<HeroById>, metadata: unknown): Observable<Hero> {
-    const subject = new Subject<Hero>();
+  findOneStream(message: Observable<hero.IHeroById>): Observable<hero.IHero> {
+    const subject = new Subject<hero.IHero>();
     const onNext = data => {
       subject.next(this.heroesList.find(({ id }) => id === data.id))
     }
-
     const onComplete = () => subject.complete();
     message.subscribe(onNext, null, onComplete);
-
     return subject.asObservable();
   }
 
