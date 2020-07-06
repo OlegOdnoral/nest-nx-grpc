@@ -16,10 +16,6 @@ export namespace hero {
         public findOneStream(request: hero.IHeroById): Promise<hero.Hero>;
     }
 
-    interface getAllStreamI{
-      getAllStream(request: Observable<hero.IHeroesListGet>): Observable<hero.IHeroesList>
-    }
-
     namespace HeroesService {
 
         type GetAllCallback = (error: (Error|null), response?: hero.HeroesList) => void;

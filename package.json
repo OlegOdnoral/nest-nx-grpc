@@ -25,7 +25,7 @@
     "dep-graph": "nx dep-graph",
     "help": "nx help",
     "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
-    "compile_types": "pbjs -t static-module ./protos/**/**.proto | pbts -o ./protos/types.d.ts -"
+    "compile_types": "pbjs -t static-module ./protos/**/**.proto | pbts -o ./protos/types.d.ts --main --no-comments --no-delimited --no-convert --no-verify --no-decode --no-encode --no-create -"
   },
   "private": true,
   "dependencies": {
