@@ -47,8 +47,8 @@
     "zone.js": "^0.10.2"
   },
   "devDependencies": {
-    "@nrwl/angular": "^9.5.0",
-    "@nrwl/nest": "^9.5.0",
+    "@nrwl/angular": "^15.4.2",
+    "@nrwl/nest": "^9.8.0",
     "@nrwl/workspace": "9.5.0",
     "@types/node": "~8.9.4",
     "dotenv": "6.2.0",
@@ -67,8 +67,8 @@
     "@types/jest": "25.1.4",
     "ts-jest": "25.2.1",
     "cypress": "^4.1.0",
-    "@nrwl/cypress": "9.5.0",
-    "@nrwl/node": "9.5.0",
+    "@nrwl/cypress": "15.4.2",
+    "@nrwl/node": "9.8.0",
     "@nestjs/schematics": "^7.0.0",
     "@nestjs/testing": "^7.0.0",
     "@nrwl/eslint-plugin-nx": "9.5.0",
